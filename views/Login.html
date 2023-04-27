@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+    <div class="form-container">
+      <form id="login">
+        <h1>Login</h1>
+        <label for="lusername">Username:</label>
+        <input type="text" id="lusername" name="lusername" placeholder="Username" required>
+        <label for="lpassword">Password:</label>
+        <input type="password" id="lpassword" placeholder="Password" name="lpassword" required>
+        <div class="btns">
+          <button type="submit" id="login-btn">Login</button>
+          <a href="/auth/google" class="google-auth">Google</a>
+          
+        </div>
+        <p>If you dont have account please Register!</p><a href="#" id="reg">Register</a>
+      </form>
+      <form id="register" style="display: none;">
+        <h1>Register</h1>
+        <label for="rusername">Username:</label>
+        <input type="text" id="rusername" name="rusername" placeholder="Username" required>
+        <label for="email">E-mail:</label>
+        <input type="email" id="email" placeholder="Email" name="email" required>
+        <label for="rpassword">Password:</label>
+        <input type="password" id="rp
+          assword" placeholder="Password" name="rpassword" required>
+        <div class="btns">
+          <button type="submit" id="register-btn">Register</button>
+          <a href="/auth/google" class="google-auth">Google</a>
+        </div>
+        <p>If you have account please Login!</p><a href="#" id="log">Login</a>
+      </form>
+    </div>
+    <div class="page-content">
+      <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp" class="img-fluid"
+        alt="Sample image">
+    </div>
+  </div>
+  <footer>
+    <p style="margin: 0; height: 20px;">Copyright &copy; 2023. All rights reserved.</p>
+  </footer>
+</body>
+<script>
+  const regbutton = document.getElementById('reg');
+  const loginBtn = document.getElementById('log');
+  const logform = document.getElementById('login');
+  const regform = document.getElementById('register');
+  const form = document.querySelector('.form-container');
+  const page = document.querySelector('.page-content');
+
+  regbutton.addEventListener('click', () => {
+    page.style.transform = 'translateX(-85%)';
+    form.style.transform = 'translateX(123%)';
+    form.style.background = "linear-gradient(270deg,rgb(0, 106, 255),white)"
+    logform.style.display = 'none';
+    regform.style.display = '';
+  });
+  loginBtn.addEventListener('click', () => {
+    page.style.transform = 'translateX(0%)';
+    form.style.transform = 'translateX(0%)';
+    form.style.background = "linear-gradient(90deg,rgb(0, 106, 255),white)"
+    logform.style.display = "";
+    regform.style.display = "none";
+  });
+</script>
+
+</html>
