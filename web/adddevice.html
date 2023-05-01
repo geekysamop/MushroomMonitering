@@ -10,9 +10,27 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap" rel="stylesheet">
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="navbar.css">
 
 </head>
 <body>
+  <div class="navbar" id="navbar">
+    <a  href="#">Dashboard</a>
+    <a class="active" href="#">Add Device</a>
+    <a href="#">Our Team</a>
+</div>
+
+<!-- Nav icon that toggles the navbar -->
+<div class="nav-icon" id="nav-icon" onclick="toggleNavbar()">
+    <div class="line"></div>
+    <div class="line"></div>
+    <div class="line"></div>
+</div>
+<div class="nav-icon2" id="nav-icon2" onclick="toggleNavbar()">
+    <div class="line2"></div>
+    <div class="line2"></div>
+    <div class="line2"></div>
+</div>
   <div class="container">
     <div class="background">
       <img src="./mushroomback.jpg" alt="">
@@ -56,5 +74,21 @@ $('#btn').on('click', () => {
       console.error(`Error: ${error}`);
     });
 });
+function toggleNavbar() {
+      var navbar = document.getElementById("navbar");
+      var navIcon = document.getElementById("nav-icon");
+      var navIcon2 = document.getElementById("nav-icon2");
+      if (navbar.classList.contains("open")) {
+        // Close the navbar
+        navbar.classList.remove("open");
+        navIcon.classList.remove("open");
+        navIcon2.classList.remove("open");
+      } else {
+        // Open the navbar
+        navbar.classList.add("open");
+        navIcon.classList.add("open");
+        navIcon2.classList.add("open");
+      }
+    }
 </script>
 </html>

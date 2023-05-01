@@ -27,7 +27,7 @@ app.use(passport.session());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
-const port = 3000;
+const port = 8000;
 
 app.set("view engine", "ejs");
 
@@ -44,6 +44,7 @@ function isLoggedIn(req, res, next) {
 }
 
 app.use((req, res, next) => {
+
     res.header("Access-Control-Allow-Origin", "*");
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET');
