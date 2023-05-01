@@ -14,7 +14,7 @@ app.use(function(req, res, next) {
   next();
 });
 
-const port = 4000;
+const port = 7000;
 const SCD = require('./models/SCD');
 const soil = require('./models/soil');
 
@@ -30,7 +30,7 @@ const options = {
     },
     servers: [
       {
-        url: 'http://localhost:4000'
+        url: 'http://localhost:7000'
       }
     ]
   },
@@ -144,6 +144,7 @@ app.get('/scd/one/:device', async (req, res) => {
 
   app.post('/scd/devices', async (req, res) => {
     const device = new SCD(req.body);
+    
     await device.save();
     res.status(201).send(device);
   });
@@ -311,6 +312,7 @@ app.get('/scd/one/:device', async (req, res) => {
 
   app.post('/soil/devices', async (req, res) => {
     const device = new soil(req.body);
+    console.log(device);
     await device.save();
     res.status(201).send(device);
   });

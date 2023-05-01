@@ -1,0 +1,120 @@
+body {
+	background-color: #f7f7f7;
+	color: #333;
+	font-family: Arial, sans-serif;
+	font-size: 16px;
+	line-height: 1.5;
+	margin: 0;
+}
+
+header {
+	background-color: #333;
+	color: #fff;
+	padding: 20px;
+	text-align: center;
+}
+
+h1 {
+	margin: 0;
+}
+
+main {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	padding: 20px;
+}
+
+.card {
+	background-color: #fff;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+	margin: 20px;
+	max-width: 300px;
+    height: 270px;
+	padding: 20px;
+	text-align: center;
+	transition: all 0.3s ease-in-out;
+}
+
+.card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    
+}
+
+@keyframes bg{
+    0%{
+        color: #333;
+    }
+    100%{
+        color: darkcyan;
+    }
+}
+
+.card img {
+	max-width: 100px;
+    border-radius: 50px;
+	transition: all 0.3s ease-in-out;
+    margin-left: 25%;
+}
+
+.card:hover img{
+	transform: scale(1.2);
+}
+
+.card:hover h2{
+    animation: reveal 1s, blink 1s step-end infinite;
+    border-right: .15em solid orange; 
+    white-space: nowrap;
+}
+
+
+@keyframes reveal{
+    0%{
+        width: 0%;
+    }
+    100%{
+        width: 100%;
+    }
+}
+@keyframes blink {
+    from, to { border-color: transparent }
+    50% { border-color: orange }
+  }
+
+h2 {
+	margin-top: 10px !important;
+	margin-bottom: 10px;
+    overflow: hidden;
+}
+
+p {
+	margin: 0;
+    overflow: hidden;
+    
+}
+
+.card a {
+    color: chocolate !important;
+    text-decoration: none;
+    position: relative;
+    text-decoration: none !important;
+}
+
+.card a::after {
+    content: '';
+    position: absolute;
+    text-decoration: none !important;
+    bottom: -2px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background-color: darkcyan;
+    transition: all 0.3s ease-in-out;
+}
+
+.card a:hover::after {
+    width: 100%;
+    text-decoration: none !important;
+    color: chocolate;
+}

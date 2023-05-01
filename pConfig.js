@@ -4,8 +4,6 @@ const db = require('./database')
 exports.initializingPassport = (passport) => {
     passport.use(new LocalStrategy(async (username, password, done) => {
         try {
-            console.log(username);
-            console.log(password);
             const user = await db.findOne({ username });
             console.log(user);
             if (!user) {
