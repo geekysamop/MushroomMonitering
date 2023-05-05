@@ -13,11 +13,11 @@
 <link rel="stylesheet" href="navbar.css">
 
 </head>
-<body>
-  <div class="navbar" id="navbar">
-    <a  href="#">Dashboard</a>
-    <a class="active" href="#">Add Device</a>
-    <a href="#">Our Team</a>
+<div class="navbar" id="navbar">
+  <a href="/main">YelloFarm</a>
+  <a  href="/charts">Dashboard</a>
+  <a class="active" href="/add">Add Device</a>
+  <a href="/team">Our Team</a>
 </div>
 
 <!-- Nav icon that toggles the navbar -->
@@ -56,7 +56,7 @@
 </body>
 <script src="https://code.jquery.com/jquery-3.6.4.js" integrity="sha256-a9jBBRygX1Bh5lt8GZjXDzyOB+bWve9EiO7tROUtj/E=" crossorigin="anonymous"></script>
 <script>
-  const API_URL = 'http://localhost:4000/soil/devices';
+  const API_URL = 'https://defiant-hare-scarf.cyclic.app/soil/devices';
 
 $('#btn').on('click', () => {
   const device = $('#device').val();

@@ -33,6 +33,31 @@
     color: white;
   }
 
+  .active:hover{
+    animation: multicolor 5s infinite forwards;
+  }
+
+  @keyframes multicolor {
+    0% {
+      background-color: #4CAF50;
+      color: #FFFFFF;
+    }
+    25% {
+      background-color: #2196F3;
+      color: #000000;
+    }
+    50% {
+      background-color: #FFC107;
+      color: #000000;
+    }
+    100% {
+      background-color: #4CAF50;
+      color: #FFFFFF;
+    }
+  }
+  
+  
+  
 
   .nav-icon,.nav-icon2 {
     font-size: 30px;

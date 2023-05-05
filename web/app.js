@@ -122,17 +122,6 @@ complete.addEventListener('click', () => {
 
 
 
-const hour = document.getElementById('hour');
-hour.addEventListener('click', () => {
-    // setInterval(() => {
-    const now = new Date();
-    const oneHourAgo = new Date(now.getTime() - (60 * 60 * 1000));
-    drawGraph0_H("SCD-30", oneHourAgo);
-    drawGraph1_H("SCD-30", oneHourAgo);
-    drawGraph2_H("SCD-30", oneHourAgo);
-    drawGraph3_H(mux, oneHourAgo);
-    // }, 10000);
-});
 
 const sixhour = document.getElementById('six');
 sixhour.addEventListener('click', () => {
@@ -195,7 +184,7 @@ function drawGraph0_C(name) {
                             type: 'line'
                         },
                         title: {
-                            text: 'SCD data'
+                            text: 'Temperature'
                         },
                         xAxis: {
                             type: 'datetime',
@@ -241,7 +230,7 @@ function drawGraph1_C(name) {
                             type: 'line'
                         },
                         title: {
-                            text: 'SCD data'
+                            text: 'Humidity'
                         },
                         xAxis: {
                             type: 'datetime',
@@ -260,7 +249,7 @@ function drawGraph1_C(name) {
                             }
                         },
                         series: [{
-                            name: 'Intensity series',
+                            name: 'Humidity',
                             data: intensities
                         }]
                     };
@@ -288,7 +277,7 @@ function drawGraph2_C(name) {
                             type: 'line'
                         },
                         title: {
-                            text: 'SCD data'
+                            text: 'Co2'
                         },
                         xAxis: {
                             type: 'datetime',
@@ -307,7 +296,7 @@ function drawGraph2_C(name) {
                             }
                         },
                         series: [{
-                            name: 'Intensity series',
+                            name: 'Co2',
                             data: intensities
                         }]
                     };
@@ -335,7 +324,7 @@ function drawGraph3_C(name) {
                             type: 'line'
                         },
                         title: {
-                            text: 'Soil Moisture Data'
+                            text: 'Soil Moisture'
                         },
                         xAxis: {
                             type: 'datetime',
@@ -354,7 +343,7 @@ function drawGraph3_C(name) {
                             }
                         },
                         series: [{
-                            name: 'Intensity series',
+                            name: 'Soil Moisture',
                             data: intensities
                         }]
                     };
@@ -385,7 +374,7 @@ function drawGraph0_H(name, time) {
                             type: 'line'
                         },
                         title: {
-                            text: 'SCD data'
+                            text: 'Temperature'
                         },
                         xAxis: {
                             type: 'datetime',
@@ -404,7 +393,7 @@ function drawGraph0_H(name, time) {
                             }
                         },
                         series: [{
-                            name: 'Intensity series',
+                            name: 'Temperature',
                             data: intensities
                         }]
                     };
@@ -433,7 +422,7 @@ function drawGraph1_H(name, time) {
                             type: 'line'
                         },
                         title: {
-                            text: 'SCD data'
+                            text: 'Humidity'
                         },
                         xAxis: {
                             type: 'datetime',
@@ -452,7 +441,7 @@ function drawGraph1_H(name, time) {
                             }
                         },
                         series: [{
-                            name: 'Intensity series',
+                            name: 'Humidity',
                             data: intensities
                         }]
                     };
@@ -483,7 +472,7 @@ function drawGraph2_H(name, time) {
                             type: 'line'
                         },
                         title: {
-                            text: 'SCD data'
+                            text: 'CO2'
                         },
                         xAxis: {
                             type: 'datetime',
@@ -502,7 +491,7 @@ function drawGraph2_H(name, time) {
                             }
                         },
                         series: [{
-                            name: 'Intensity series',
+                            name: 'CO2',
                             data: intensities
                         }]
                     };
@@ -533,7 +522,7 @@ function drawGraph3_H(name, time) {
                             type: 'line'
                         },
                         title: {
-                            text: 'Soil Moisture Data'
+                            text: 'Soil Moisture '
                         },
                         xAxis: {
                             type: 'datetime',
@@ -552,7 +541,7 @@ function drawGraph3_H(name, time) {
                             }
                         },
                         series: [{
-                            name: 'Intensity series',
+                            name: 'Soil Moisture',
                             data: intensities
                         }]
                     };

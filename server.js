@@ -77,6 +77,10 @@ app.get('/', (req, res) => {
     res.sendFile(`${web}/welcome.html`)
 })
 
+app.get('/main',isAuthenticated, (req, res) => {
+    res.sendFile(`${web}/main.html`)
+})
+
 app.get('/charts',isAuthenticated, (req, res) => {
     res.sendFile(`${web}/charts.html`)
 })
@@ -90,7 +94,7 @@ app.post('/login', passport.authenticate('local', {
     failureFlash: true
   }), function(req, res) {
     // Redirect to homepage on success
-    res.redirect('/');
+    res.redirect('/main');
   });
 
 app.post('/register', async (req, res) => {
@@ -100,10 +104,14 @@ app.post('/register', async (req, res) => {
         if (user) return res.status(400).send("user already exist! ");
 
         const newUser = await User.create(req.body);
-        res.redirect('/');
+        res.redirect('/main');
     } catch (error) {   
         console.log(error)
     }
+})
+
+app.get('/thankyou',(req,res)=>{
+    res.sendFile(`${web}/thankyou.html`)
 })
 
 app.get('/*',(req,res)=>{

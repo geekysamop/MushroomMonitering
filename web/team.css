@@ -29,8 +29,8 @@ main {
 	background-color: #fff;
 	box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 	margin: 20px;
-	max-width: 300px;
-    height: 270px;
+	max-width: 2500px;
+    height: 210px;
 	padding: 20px;
 	text-align: center;
 	transition: all 0.3s ease-in-out;
@@ -55,11 +55,24 @@ main {
 	max-width: 100px;
     border-radius: 50px;
 	transition: all 0.3s ease-in-out;
-    margin-left: 25%;
+    margin-left: 5%;
 }
 
 .card:hover img{
 	transform: scale(1.2);
+    animation:rotate 3s ease;
+}
+
+@keyframes rotate{
+    0%{
+        transform: rotate(0deg);
+    }
+    50%{
+        transform: rotate(360deg);
+    }
+    100%{
+        transform: rotate(0deg);
+    }
 }
 
 .card:hover h2{

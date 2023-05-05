@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
@@ -17,6 +17,7 @@ app.use(function(req, res, next) {
 const port = 7000;
 const SCD = require('./models/SCD');
 const soil = require('./models/soil');
+const rate = require('./models/rate');
 
 const swaggerJSDoc = require('swagger-jsdoc')
 const swaggerUi = require('swagger-ui-express')
@@ -30,7 +31,7 @@ const options = {
     },
     servers: [
       {
-        url: 'http://localhost:7000'
+        url: 'https://defiant-hare-scarf.cyclic.app'
       }
     ]
   },
@@ -39,7 +40,7 @@ const options = {
 const swaggerSpec = swaggerJSDoc(options)
 app.use('/api-doc', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
-mongoose.connect('mongodb+srv://mushroom:monitor@mushroom.toqpt0l.mongodb.net/Devices', {useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect('mongodb+srv://mushroom:monitor@mushroom.toqpt0l.mongodb.net/Devices', { useNewUrlParser: true, useUnifiedTopology: true });
 
 //  *********** SCD *************
 
@@ -90,15 +91,15 @@ mongoose.connect('mongodb+srv://mushroom:monitor@mushroom.toqpt0l.mongodb.net/De
 
 
 app.get('/scd/one/:device', async (req, res) => {
-    const name = req.params.device;
-    const device = await SCD.findOne({ device: name });
-  
-    if (!device) {
-      return res.status(404).send({ message: 'Device not found' });
-    }
-  
-    res.status(200).send(device);
-  });
+  const name = req.params.device;
+  const device = await SCD.findOne({ device: name });
+
+  if (!device) {
+    return res.status(404).send({ message: 'Device not found' });
+  }
+
+  res.status(200).send(device);
+});
 
 /**
  * @swagger
@@ -117,12 +118,12 @@ app.get('/scd/one/:device', async (req, res) => {
  *                    items: 
  *                        $ref: '#components/schema/Devices'
  */
-  
-  app.get('/scd/devices', async (req, res) => {
-    const device = await SCD.find({});
-    res.status(200).send(device)
-  })
-  
+
+app.get('/scd/devices', async (req, res) => {
+  const device = await SCD.find({});
+  res.status(200).send(device)
+})
+
 /**
  * @swagger
  * /scd/devices:
@@ -142,13 +143,13 @@ app.get('/scd/one/:device', async (req, res) => {
  *          
  */
 
-  app.post('/scd/devices', async (req, res) => {
-    const device = new SCD(req.body);
-    
-    await device.save();
-    res.status(201).send(device);
-  });
-  
+app.post('/scd/devices', async (req, res) => {
+  const device = new SCD(req.body);
+
+  await device.save();
+  res.status(201).send(device);
+});
+
 /**
  * @swagger
  * /scd/devices/{device}:
@@ -168,60 +169,60 @@ app.get('/scd/one/:device', async (req, res) => {
  *          description: Deleted Successfully
  */
 
-  app.delete('/scd/devices/:device', async (req, res) => {
-    const name = req.params.device;
-    const deletedDevice = await SCD.findOneAndDelete({ device: name });
-  
-    if (!deletedDevice) {
-      return res.status(404).send({ message: 'Device not found' });
-    }
-  
-    res.status(200).send(deletedDevice);
+app.delete('/scd/devices/:device', async (req, res) => {
+  const name = req.params.device;
+  const deletedDevice = await SCD.findOneAndDelete({ device: name });
+
+  if (!deletedDevice) {
+    return res.status(404).send({ message: 'Device not found' });
+  }
+
+  res.status(200).send(deletedDevice);
+});
+
+/**
+* @swagger
+* /scd/devices/{device}:
+*  put:
+*      summary: Exchange the information of a device
+*      description: Fetch and update data from database
+*      tags: [SCD Devices]
+*      parameters:
+*          - in: path
+*            name: Device
+*            required: true
+*            description: Device's Name
+*            schema:
+*              type: string
+*      requestBody:
+*            required: true
+*            content: 
+*              application/json:
+*                schema:
+*                    $ref: '#components/schema/Devices'
+*      responses:
+*        200:
+*          description: Updated successfully
+*          content:
+*              application/json:
+*                schema:
+*                    type: array
+*                    items: 
+*                        $ref: '#components/schema/Devices'
+*/
+
+app.put('/scd/devices/:device', async (req, res) => {
+  const update = req.params.device;
+  const updatedDevice = await SCD.findOneAndUpdate({ device: update }, req.body, {
+    new: true,
+    runValidators: true,
   });
 
- /**
- * @swagger
- * /scd/devices/{device}:
- *  put:
- *      summary: Exchange the information of a device
- *      description: Fetch and update data from database
- *      tags: [SCD Devices]
- *      parameters:
- *          - in: path
- *            name: Device
- *            required: true
- *            description: Device's Name
- *            schema:
- *              type: string
- *      requestBody:
- *            required: true
- *            content: 
- *              application/json:
- *                schema:
- *                    $ref: '#components/schema/Devices'
- *      responses:
- *        200:
- *          description: Updated successfully
- *          content:
- *              application/json:
- *                schema:
- *                    type: array
- *                    items: 
- *                        $ref: '#components/schema/Devices'
- */
-  
-  app.put('/scd/devices/:device', async (req, res) => {
-    const update = req.params.device;
-    const updatedDevice = await SCD.findOneAndUpdate({ device: update }, req.body, {
-      new: true,
-      runValidators: true,
-    });
-  
-    if (!updatedDevice) {
-      return res.status(404).send({ message: 'Device not found' });
-    }
-    res.status(200).send(updatedDevice);
-  });
+  if (!updatedDevice) {
+    return res.status(404).send({ message: 'Device not found' });
+  }
+  res.status(200).send(updatedDevice);
+});
 
 //  *********** SOIL *************
 
@@ -257,40 +258,40 @@ app.get('/scd/one/:device', async (req, res) => {
  *                    items: 
  *                        $ref: '#components/schema/Devices'
  */
-  app.get('/soil/one/:device', async (req, res) => {
-    const name = req.params.device;
-    const device = await soil.findOne({ device: name });
-  
-    if (!device) {
-      return res.status(404).send({ message: 'Device not found' });
-    }
-  
-    res.status(200).send(device);
-  });
+app.get('/soil/one/:device', async (req, res) => {
+  const name = req.params.device;
+  const device = await soil.findOne({ device: name });
 
-  /**
- * @swagger
- * /soil/devices:
- *  get:
- *      summary: To get all the Soil devices
- *      description: Fetch information from the mongodb database
- *      tags: [Soil Devices]
- *      responses: 
- *        200:
- *          description: This API will fetch data from server
- *          content: 
- *              application/json:
- *                schema:
- *                    type: array
- *                    items: 
- *                        $ref: '#components/schema/Devices'
- */
-  
-  app.get('/soil/devices', async (req, res) => {
-    const device = await soil.find({});
-    res.status(200).send(device)
-  })
-  
+  if (!device) {
+    return res.status(404).send({ message: 'Device not found' });
+  }
+
+  res.status(200).send(device);
+});
+
+/**
+* @swagger
+* /soil/devices:
+*  get:
+*      summary: To get all the Soil devices
+*      description: Fetch information from the mongodb database
+*      tags: [Soil Devices]
+*      responses: 
+*        200:
+*          description: This API will fetch data from server
+*          content: 
+*              application/json:
+*                schema:
+*                    type: array
+*                    items: 
+*                        $ref: '#components/schema/Devices'
+*/
+
+app.get('/soil/devices', async (req, res) => {
+  const device = await soil.find({});
+  res.status(200).send(device)
+})
+
 /**
  * @swagger
  * /soil/devices:
@@ -310,13 +311,13 @@ app.get('/scd/one/:device', async (req, res) => {
  *          
  */
 
-  app.post('/soil/devices', async (req, res) => {
-    const device = new soil(req.body);
-    console.log(device);
-    await device.save();
-    res.status(201).send(device);
-  });
-  
+app.post('/soil/devices', async (req, res) => {
+  const device = new soil(req.body);
+  console.log(device);
+  await device.save();
+  res.status(201).send(device);
+});
+
 /**
  * @swagger
  * /soil/devices/{device}:
@@ -336,17 +337,33 @@ app.get('/scd/one/:device', async (req, res) => {
  *          description: Deleted Successfully
  */
 
-  app.delete('/soil/devices/:device', async (req, res) => {
-    const name = req.params.device;
-    const deletedDevice = await soil.findOneAndDelete({ device: name });
-  
-    if (!deletedDevice) {
-      return res.status(404).send({ message: 'Device not found' });
-    }
-  
-    res.status(200).send(deletedDevice);
-  });
-  
+app.delete('/soil/devices/:device', async (req, res) => {
+  const name = req.params.device;
+  const deletedDevice = await soil.findOneAndDelete({ device: name });
+
+  if (!deletedDevice) {
+    return res.status(404).send({ message: 'Device not found' });
+  }
+
+  res.status(200).send(deletedDevice);
+});
+
+
+app.post('/rating', async(req, res) => {
+  const { name,rating,review } = req.body;
+  const newrate = new rate({
+    name,
+    rating,
+    review
+  })
+  try {
+    await newrate.save();
+    res.status(201).send(newrate);
+  } catch (error) {
+    res.send(error)
+  }
+})
+
 /**
  * @swagger
  * /soil/devices/{device}:
@@ -378,18 +395,18 @@ app.get('/scd/one/:device', async (req, res) => {
  *                        $ref: '#components/schema/Devices'
  */
 
-  app.put('/soil/devices/:device', async (req, res) => {
-    const update = req.params.device;
-    const updatedDevice = await soil.findOneAndUpdate({ device: update }, req.body, {
-      new: true,
-      runValidators: true,
-    });
-  
-    if (!updatedDevice) {
-      return res.status(404).send({ message: 'Device not found' });
-    }
-    res.status(200).send(updatedDevice);
+app.put('/soil/devices/:device', async (req, res) => {
+  const update = req.params.device;
+  const updatedDevice = await soil.findOneAndUpdate({ device: update }, req.body, {
+    new: true,
+    runValidators: true,
   });
+
+  if (!updatedDevice) {
+    return res.status(404).send({ message: 'Device not found' });
+  }
+  res.status(200).send(updatedDevice);
+});
 
 app.listen(port, () => {
   console.log(`listening on port ${port}`);
